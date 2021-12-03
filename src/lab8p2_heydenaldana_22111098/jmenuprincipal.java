@@ -20,6 +20,8 @@ public class jmenuprincipal extends javax.swing.JFrame {
         initComponents();
         bdd.crearPrimerRegistro();
         bdd.rellenacbpartida(cbpartida);
+        bdd.rellenacbpartida(cbpartidae);
+        bdd.rellenacbpartida(cbpartidap);
     }
 
     /**
@@ -47,7 +49,7 @@ public class jmenuprincipal extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         tdistancia = new javax.swing.JTextField();
         tdescripcion = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        tdesc = new javax.swing.JTextArea();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         testrella = new javax.swing.JTextField();
@@ -106,6 +108,11 @@ public class jmenuprincipal extends javax.swing.JFrame {
         biniciar.setForeground(new java.awt.Color(0, 0, 0));
         biniciar.setText("Iniciar");
         biniciar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 0, 0)));
+        biniciar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                biniciarMouseClicked(evt);
+            }
+        });
 
         beditar.setBackground(new java.awt.Color(204, 204, 204));
         beditar.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -201,13 +208,13 @@ public class jmenuprincipal extends javax.swing.JFrame {
         tdistancia.setForeground(new java.awt.Color(0, 0, 0));
         tdistancia.setAutoscrolls(false);
 
-        jTextArea1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jTextArea1.setForeground(new java.awt.Color(0, 0, 0));
-        jTextArea1.setRows(5);
-        jTextArea1.setAutoscrolls(false);
-        tdescripcion.setViewportView(jTextArea1);
+        tdesc.setBackground(new java.awt.Color(255, 255, 255));
+        tdesc.setColumns(20);
+        tdesc.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        tdesc.setForeground(new java.awt.Color(0, 0, 0));
+        tdesc.setRows(5);
+        tdesc.setAutoscrolls(false);
+        tdescripcion.setViewportView(tdesc);
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel5.setText("Distancia ");
@@ -226,12 +233,22 @@ public class jmenuprincipal extends javax.swing.JFrame {
         cbpartidae.setBackground(new java.awt.Color(204, 204, 204));
         cbpartidae.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         cbpartidae.setForeground(new java.awt.Color(0, 0, 0));
+        cbpartidae.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbpartidaeMouseClicked(evt);
+            }
+        });
 
         bcreare.setBackground(new java.awt.Color(204, 204, 204));
         bcreare.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         bcreare.setForeground(new java.awt.Color(0, 0, 0));
         bcreare.setText("Crear estrella");
         bcreare.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 0, 0)));
+        bcreare.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bcreareMouseClicked(evt);
+            }
+        });
 
         jmensaje1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jmensaje1.setText("*...");
@@ -301,6 +318,11 @@ public class jmenuprincipal extends javax.swing.JFrame {
         cbpartidap.setBackground(new java.awt.Color(204, 204, 204));
         cbpartidap.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         cbpartidap.setForeground(new java.awt.Color(0, 0, 0));
+        cbpartidap.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbpartidapMouseClicked(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel8.setText("Partida");
@@ -326,6 +348,11 @@ public class jmenuprincipal extends javax.swing.JFrame {
         bcrearp.setForeground(new java.awt.Color(0, 0, 0));
         bcrearp.setText("Crear jugador");
         bcrearp.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 0, 0)));
+        bcrearp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bcrearpMouseClicked(evt);
+            }
+        });
 
         jmensaje2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jmensaje2.setText("*...");
@@ -444,7 +471,13 @@ public class jmenuprincipal extends javax.swing.JFrame {
     private void bcrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bcrearMouseClicked
         // TODO add your handling code here:
         if(bdd.crearPartida(tpartida.getText()))
+        {
             jmensaje.setText("* PARTIDA CREADA CON EXITO");
+            cbpartida.removeAllItems();
+            bdd.rellenacbpartida(cbpartida);
+            bdd.rellenacbpartida(cbpartidae);
+            bdd.rellenacbpartida(cbpartidap);
+        }
         else
             jmensaje.setText("* ESTA PARTIDA YA EXISTE");
         
@@ -457,7 +490,13 @@ public class jmenuprincipal extends javax.swing.JFrame {
     private void beditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_beditarMouseClicked
         // TODO add your handling code here:
         if(bdd.editarPartida((String)cbpartida.getSelectedItem(), tpartida.getText()))
+        {
             jmensaje.setText("* PARTIDA EDITADA CON EXITO");
+            cbpartida.removeAllItems();
+            bdd.rellenacbpartida(cbpartida);
+            bdd.rellenacbpartida(cbpartidae);
+            bdd.rellenacbpartida(cbpartidap);
+        }
         else
             jmensaje.setText("* ESTA PARTIDA NO EXISTE");
         
@@ -466,15 +505,73 @@ public class jmenuprincipal extends javax.swing.JFrame {
     private void beliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_beliminarMouseClicked
         // TODO add your handling code here:
         if(bdd.eliminarPartida(tpartida.getText()))
+        {
             jmensaje.setText("* PARTIDA ELIMINADA CON EXITO");
+            cbpartida.removeAllItems();
+            bdd.rellenacbpartida(cbpartida);
+            bdd.rellenacbpartida(cbpartidae);
+            bdd.rellenacbpartida(cbpartidap);
+        }
         else
             jmensaje.setText("* ESTA PARTIDA NO EXISTE");
     }//GEN-LAST:event_beliminarMouseClicked
 
     private void cbpartidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbpartidaMouseClicked
         // TODO add your handling code here:
-        bdd.rellenacbpartida(cbpartida);
     }//GEN-LAST:event_cbpartidaMouseClicked
+
+    private void biniciarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_biniciarMouseClicked
+        // TODO add your handling code here:
+        jPartida partida = new jPartida();
+        partida.setVisible(true);
+        this.hide();
+    }//GEN-LAST:event_biniciarMouseClicked
+
+    private void bcreareMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bcreareMouseClicked
+        // TODO add your handling code here:
+        try
+        {
+            if(bdd.agregarEstrellaaPartida((String)cbpartidae.getSelectedItem(), Integer.valueOf(tdistancia.getText()), tdesc.getText(), testrella.getText()));
+            {
+                jmensaje1.setText("* ESTRELLA CREADA CON EXITO");
+                cbpartidae.removeAllItems();
+                bdd.rellenacbpartida(cbpartida);
+                bdd.rellenacbpartida(cbpartidae);
+                bdd.rellenacbpartida(cbpartidap);
+            }
+        } catch (Exception e) {
+            jmensaje1.setText("*** ERROR: pueden ser dos causas:\n"
+                    + "1. NO HA RELLENADO TODOS LOS CAMPOS O NO HA ESCODIGO UNA PARTIDA\n"
+                    + "2. HA ESCRITO VALORES QUE NO CORRESPONDEN (VERIFIQUE DISTANCIA)");
+        }
+    }//GEN-LAST:event_bcreareMouseClicked
+
+    private void cbpartidaeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbpartidaeMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbpartidaeMouseClicked
+
+    private void cbpartidapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbpartidapMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbpartidapMouseClicked
+
+    private void bcrearpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bcrearpMouseClicked
+        // TODO add your handling code here:
+        try
+        {
+            if(bdd.agregarJugadoraPartida((String)cbpartidap.getSelectedItem(), Double.valueOf(tvelocidad.getText()), tjugador.getText()))
+            {
+                jmensaje2.setText("* JUGADOR CREADO CON EXITO");
+                cbpartidap.removeAllItems();
+                bdd.rellenacbpartida(cbpartidap);
+                bdd.rellenacbpartida(cbpartida);
+                bdd.rellenacbpartida(cbpartidae);
+            }
+        } catch (Exception e) {
+            jmensaje1.setText("*** ERROR: pueden ser dos causas:\n"
+                    + "1. NO HA RELLENADO TODOS LOS CAMPOS O NO HA ESCODIGO UNA PARTIDA\n"
+                    + "2. HA ESCRITO VALORES QUE NO CORRESPONDEN (VERIFIQUE VELOCIDAD)");
+        }
+    }//GEN-LAST:event_bcrearpMouseClicked
 
     /**
      * @param args the command line arguments
@@ -537,10 +634,10 @@ public class jmenuprincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel jmensaje;
     private javax.swing.JLabel jmensaje1;
     private javax.swing.JLabel jmensaje2;
+    private javax.swing.JTextArea tdesc;
     private javax.swing.JScrollPane tdescripcion;
     private javax.swing.JTextField tdistancia;
     private javax.swing.JTextField testrella;
