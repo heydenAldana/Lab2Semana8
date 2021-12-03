@@ -1,5 +1,11 @@
 package lab8p2_heydenaldana_22111098;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -7,14 +13,26 @@ import javax.swing.JComboBox;
 public class BDD 
 {
     // atributos para base de datos
-    private ArrayList<Partida> partida = new ArrayList<Partida>();
-    private ArrayList<Estrella> estrella; 
-    private ArrayList<Jugador> player;
+    private File cestrella, cjugador, cpartida;
+    private RandomAccessFile rpartida, restrella, rjugador;
     
+    /*
+     * RPARTIDA (String nombre, String fechacreacion
+     * RESTRELLA (int distancia, String descripcion, Strign nombre)
+     * RJUGADOR (double velocidad, String nombre)
+    */
     
     // Crear una partida con dos jugadores y dos estrellas
-    public void crearPrimerRegistro()
+    public void crearPrimerRegistro() throws IOException
     {
+        // crea las carpetas
+        cpartida = new File("/partidas");
+        cpartida.mkdirs();
+        cestrella = new File("/estrellas");
+        cpartida.mkdirs();
+        cjugador = new File("/jugadores");
+        cpartida.mkdirs();
+        
         String p = "Ciudad Morioh";
         partida.add(new Partida(p));
         partida.get(0).setStar(1000, "En un valle enrome con una cuidad\n"
@@ -30,87 +48,175 @@ public class BDD
     
     
     // crear partida
-    public boolean crearPartida(String nombre)
+    public boolean crearPartida(String nombre) throws IOException
     {
-        for (Partida p : partida) 
+        try
         {
-            if(p.getNombre().equals(nombre))
+            if(verificarNombrePartida(nombre))
                 return false;
-        }
-        partida.add(new Partida(nombre));
-        return true;
-    }
-    
-    // editar partida
-    public boolean editarPartida(String nombre, String nombrem)
-    {
-        for (Partida p : partida) 
-        {
-            if(p.getNombre().equals(nombre))
-            {
-                p.setNombre(nombrem);
-                return true;
-            }  
+            rpartida = new RandomAccessFile("/partidas/partida.nin", "rw");
+            rpartida.seek(rpartida.length());
+            rpartida.writeUTF(nombre);
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+            rpartida.writeUTF(dtf.format(LocalDateTime.now()));
+            return true;
+        } catch (IOException e) {
+            
         }
         return false;
     }
     
-    // eliminar partida
-    public boolean eliminarPartida(String nombre)
+    
+    private boolean verificarNombrePartida(String nombre) throws IOException
     {
-        for (int i = 0; i < partida.size(); i++) 
+        try
         {
-            if(partida.get(i).getNombre().equals(nombre))
+            rpartida = new RandomAccessFile("/partidas/partida.nin", "rw");
+            rpartida.seek(0);
+            for (int i = 0; i < rpartida.length(); i++) 
             {
-                partida.remove(i);
-                return true;
+                if(rpartida.readUTF().equals(nombre))
+                    return true;
+                rpartida.readUTF();
             }
+        } catch (IOException e) {
+            
+        }
+        return false;
+    }
+    
+    
+    // editar partida
+    public boolean editarPartida(String nombre, String nombrem) throws IOException
+    {
+        try
+        {
+            rpartida = new RandomAccessFile("/partidas/partida.nin", "rw");
+            rpartida.seek(0);
+            for (int i = 0; i < rpartida.length(); i++) 
+            {
+                if(rpartida.readUTF().equals(nombre))
+                {
+                    rpartida.writeUTF(nombrem);
+                    return true;
+                }
+                rpartida.readUTF();
+            }
+        } catch (IOException e) {
+            
+        }
+        return false;
+    }
+    
+    
+    // eliminar partida
+    public boolean eliminarPartida(String nombre) throws IOException
+    {
+        try
+        {
+            rpartida = new RandomAccessFile("/partidas/partida.nin", "rw");
+            rpartida.seek(0);
+            for (int i = 0; i < rpartida.length(); i++) 
+            {
+                if(rpartida.readUTF().equals(nombre))
+                {
+                    rpartida.writeUTF(null);
+                    rpartida.writeUTF(null);
+                    return true;
+                }
+                rpartida.readUTF();
+            }
+        } catch (IOException e) {
+            
         }
         return false;
     }
     
     
     // agregar estrella a x partida
-    public boolean agregarEstrellaaPartida(String nombrepartida, int distancia, String descripcion, String nombreestrella)
+    public boolean agregarEstrellaaPartida(String nombrepartida, int distancia, String descripcion, String nombreestrella) throws IOException
     {
-        for (Partida p : partida) 
+        try
         {
-            if(p.getNombre().equals(nombrepartida))
+            if(verificarNombrePartida(nombrepartida))
             {
-                // verifica si hay una estrella con igual nombre
-                for (Estrella e : estrella) 
+                restrella = new RandomAccessFile("/estrellas/estrella.nin", "rw");           
+                restrella.seek(0);
+                for (int i = 0; i < restrella.length(); i++) 
                 {
-                    if(e.getNombre().equals(nombreestrella))
+                    restrella.readInt();
+                    restrella.readUTF();
+                    if(restrella.readUTF().equals(nombreestrella))
                         return false;
                 }
-                p.setStar(distancia, descripcion, nombreestrella);
-                return true;
+                
+                // lo agrega
+                restrella.seek(restrella.length());
+                restrella.writeInt(distancia);
+                restrella.writeUTF(descripcion);
+                restrella.writeUTF(nombreestrella);
             }
+            else 
+            {
+                return false;
+            }
+        } catch (IOException e) {
+            
         }
-        // no existe dicha partida con ese nombre
-        return false;
+        
+        return true;
     }
     
     
     // agregar jugador a x partida
-    public boolean agregarJugadoraPartida(String nombrepartida, double velocidad, String nombrejugador)
+    public boolean agregarJugadoraPartida(String nombrepartida, double velocidad, String nombrejugador) throws IOException
     {
-        for (Partida p : partida) 
+        try
         {
-            if(p.getNombre().equals(nombrepartida))
+            if(verificarNombrePartida(nombrepartida))
             {
-                // verifica si hay un jugador con igual nombre
-                for (Jugador j : player) 
+                rjugador = new RandomAccessFile("/jugadores/player.nin", "rw");           
+                rjugador.seek(0);
+                for (int i = 0; i < rjugador.length(); i++) 
                 {
-                    if(j.getNombre().equals(nombrejugador))
+                    rjugador.readDouble();
+                    if(rjugador.readUTF().equals(nombrejugador))
                         return false;
                 }
-                p.setPly(velocidad, nombrejugador);
-                return true;
+                
+                // lo agrega
+                rjugador.seek(rjugador.length());
+                rjugador.writeDouble(velocidad);
+                rjugador.writeUTF(nombrejugador);
             }
+            else 
+            {
+                return false;
+            }
+        } catch (IOException e) {
+            
         }
-        // no existe dicha partida con ese nombre
-        return false;
+        
+        return true;
+    }
+    
+    private ArrayList<String> obtenerTotalPartidas()
+    {
+        ArrayList<String> totalpartidas =  new ArrayList<String>();
+        try
+        {
+            
+            rpartida = new RandomAccessFile("/partidas/partida.nin", "rw");
+            rpartida.seek(0);
+            for (int i = 0; i < rpartida.length(); i++) 
+            {
+                totalpartidas.add(rpartida.readUTF());
+                rpartida.readUTF();
+            }
+        } catch (IOException e) {
+            
+        }
+        return totalpartidas;
     }
     
     
@@ -119,16 +225,13 @@ public class BDD
     public void rellenacbpartida(JComboBox cb_partida)
     {
         ArrayList<String> cosas = new ArrayList<String>();
-        
-        for (int i = 0; i < partida.size(); i++) 
+        for (int i = 0; i < obtenerTotalPartidas().size(); i++) 
         {
-            cosas.add(partida.get(i).getNombre());
+            cosas.add(obtenerTotalPartidas().get(i));
         }
-        
         cb_partida.setModel(new DefaultComboBoxModel(cosas.toArray()));
         cosas.clear();
     }
     
     
-    // cargar jTable con elementos de la partida 
 }

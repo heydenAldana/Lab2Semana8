@@ -5,6 +5,9 @@
  */
 package lab8p2_heydenaldana_22111098;
 
+import java.io.File;
+import java.io.RandomAccessFile;
+
 /**
  *
  * @author heyde
@@ -12,6 +15,8 @@ package lab8p2_heydenaldana_22111098;
 public class jmenuprincipal extends javax.swing.JFrame {
 
     private BDD bdd = new BDD();
+    private File file;
+    private RandomAccessFile partida;
     
     /**
      * Creates new form jmenuprincipal
