@@ -11,11 +11,15 @@ package lab8p2_heydenaldana_22111098;
  */
 public class jmenuprincipal extends javax.swing.JFrame {
 
+    private BDD bdd = new BDD();
+    
     /**
      * Creates new form jmenuprincipal
      */
     public jmenuprincipal() {
         initComponents();
+        bdd.crearPrimerRegistro();
+        bdd.rellenacbpartida(cbpartida);
     }
 
     /**
@@ -28,7 +32,6 @@ public class jmenuprincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -39,20 +42,38 @@ public class jmenuprincipal extends javax.swing.JFrame {
         beditar = new javax.swing.JButton();
         tpartida = new javax.swing.JTextField();
         bcrear = new javax.swing.JButton();
+        jmensaje = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        tdistancia = new javax.swing.JTextField();
+        tdescripcion = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        testrella = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        cbpartidae = new javax.swing.JComboBox<>();
+        bcreare = new javax.swing.JButton();
+        jmensaje1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
+        cbpartidap = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
+        tjugador = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        tvelocidad = new javax.swing.JTextField();
+        bcrearp = new javax.swing.JButton();
+        jmensaje2 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("MENU PRINCIPAL");
-
         jTabbedPane1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
-        jPanel2.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel2.setBackground(new java.awt.Color(102, 102, 102));
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel2.setText("Partida");
@@ -63,36 +84,63 @@ public class jmenuprincipal extends javax.swing.JFrame {
         cbpartida.setBackground(new java.awt.Color(204, 204, 204));
         cbpartida.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         cbpartida.setForeground(new java.awt.Color(0, 0, 0));
-        cbpartida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbpartida.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbpartidaMouseClicked(evt);
+            }
+        });
 
-        beliminar.setBackground(new java.awt.Color(153, 153, 153));
+        beliminar.setBackground(new java.awt.Color(204, 204, 204));
         beliminar.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         beliminar.setForeground(new java.awt.Color(0, 0, 0));
         beliminar.setText("Eliminar partida");
         beliminar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 0, 0)));
+        beliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                beliminarMouseClicked(evt);
+            }
+        });
 
-        biniciar.setBackground(new java.awt.Color(153, 153, 153));
+        biniciar.setBackground(new java.awt.Color(204, 204, 204));
         biniciar.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         biniciar.setForeground(new java.awt.Color(0, 0, 0));
         biniciar.setText("Iniciar");
         biniciar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 0, 0)));
 
-        beditar.setBackground(new java.awt.Color(153, 153, 153));
+        beditar.setBackground(new java.awt.Color(204, 204, 204));
         beditar.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         beditar.setForeground(new java.awt.Color(0, 0, 0));
         beditar.setText("Editar partida");
         beditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 0, 0)));
+        beditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                beditarMouseClicked(evt);
+            }
+        });
 
         tpartida.setBackground(new java.awt.Color(204, 204, 204));
         tpartida.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         tpartida.setForeground(new java.awt.Color(0, 0, 0));
         tpartida.setAutoscrolls(false);
 
-        bcrear.setBackground(new java.awt.Color(153, 153, 153));
+        bcrear.setBackground(new java.awt.Color(204, 204, 204));
         bcrear.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         bcrear.setForeground(new java.awt.Color(0, 0, 0));
         bcrear.setText("Crear partida");
         bcrear.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 0, 0)));
+        bcrear.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bcrearMouseClicked(evt);
+            }
+        });
+        bcrear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bcrearActionPerformed(evt);
+            }
+        });
+
+        jmensaje.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jmensaje.setText("*...");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -101,18 +149,20 @@ public class jmenuprincipal extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(52, 52, 52)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(beditar, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(beliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(biniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbpartida, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbpartida, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(beditar, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(106, 106, 106)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel3)
-                            .addComponent(tpartida)
-                            .addComponent(bcrear, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE))))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jmensaje)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel3)
+                                .addComponent(tpartida)
+                                .addComponent(bcrear, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)))))
                 .addContainerGap(103, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -131,7 +181,9 @@ public class jmenuprincipal extends javax.swing.JFrame {
                     .addComponent(biniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bcrear, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(beditar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(beditar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jmensaje))
                 .addGap(12, 12, 12)
                 .addComponent(beliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -139,31 +191,222 @@ public class jmenuprincipal extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Partidas   ", jPanel2);
 
+        jPanel3.setBackground(new java.awt.Color(102, 102, 102));
+
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel4.setText("Descripcion");
+
+        tdistancia.setBackground(new java.awt.Color(204, 204, 204));
+        tdistancia.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        tdistancia.setForeground(new java.awt.Color(0, 0, 0));
+        tdistancia.setAutoscrolls(false);
+
+        jTextArea1.setBackground(new java.awt.Color(255, 255, 255));
+        jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jTextArea1.setForeground(new java.awt.Color(0, 0, 0));
+        jTextArea1.setRows(5);
+        jTextArea1.setAutoscrolls(false);
+        tdescripcion.setViewportView(jTextArea1);
+
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel5.setText("Distancia ");
+
+        jLabel6.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel6.setText("Nombre de la estrella");
+
+        testrella.setBackground(new java.awt.Color(204, 204, 204));
+        testrella.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        testrella.setForeground(new java.awt.Color(0, 0, 0));
+        testrella.setAutoscrolls(false);
+
+        jLabel7.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel7.setText("Partida");
+
+        cbpartidae.setBackground(new java.awt.Color(204, 204, 204));
+        cbpartidae.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        cbpartidae.setForeground(new java.awt.Color(0, 0, 0));
+
+        bcreare.setBackground(new java.awt.Color(204, 204, 204));
+        bcreare.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        bcreare.setForeground(new java.awt.Color(0, 0, 0));
+        bcreare.setText("Crear estrella");
+        bcreare.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 0, 0)));
+
+        jmensaje1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jmensaje1.setText("*...");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 619, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(80, 80, 80)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(tdescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addComponent(tdistancia, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel5))
+                .addGap(65, 65, 65)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jmensaje1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(testrella, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel7))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(cbpartidae, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bcreare, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE))
+                        .addGap(86, 86, 86))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 294, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tdescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbpartidae, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(testrella, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tdistancia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(bcreare, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addComponent(jmensaje1)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Crear estrellas   ", jPanel3);
+
+        jPanel4.setBackground(new java.awt.Color(102, 102, 102));
+
+        cbpartidap.setBackground(new java.awt.Color(204, 204, 204));
+        cbpartidap.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        cbpartidap.setForeground(new java.awt.Color(0, 0, 0));
+
+        jLabel8.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel8.setText("Partida");
+
+        tjugador.setBackground(new java.awt.Color(204, 204, 204));
+        tjugador.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        tjugador.setForeground(new java.awt.Color(0, 0, 0));
+        tjugador.setAutoscrolls(false);
+
+        jLabel9.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel9.setText("Nombre del jugador");
+
+        jLabel10.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel10.setText("Velocidad");
+
+        tvelocidad.setBackground(new java.awt.Color(204, 204, 204));
+        tvelocidad.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        tvelocidad.setForeground(new java.awt.Color(0, 0, 0));
+        tvelocidad.setAutoscrolls(false);
+
+        bcrearp.setBackground(new java.awt.Color(204, 204, 204));
+        bcrearp.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        bcrearp.setForeground(new java.awt.Color(0, 0, 0));
+        bcrearp.setText("Crear jugador");
+        bcrearp.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 0, 0)));
+
+        jmensaje2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jmensaje2.setText("*...");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 619, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(69, 69, 69)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tjugador, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+                    .addComponent(tvelocidad, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel10))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(75, 75, 75)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jmensaje2)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(cbpartidap, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bcrearp, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE))
+                        .addGap(87, 87, 87))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 294, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(68, 68, 68)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tjugador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cbpartidap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(37, 37, 37)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tvelocidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(bcrearp, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addComponent(jmensaje2)
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Crear jugadores   ", jPanel4);
+
+        jPanel5.setBackground(new java.awt.Color(0, 0, 0));
+
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("MENU PRINCIPAL");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(240, 240, 240))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jLabel1)
+                .addContainerGap(28, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -171,19 +414,17 @@ public class jmenuprincipal extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(43, 43, 43)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 624, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 624, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(40, Short.MAX_VALUE))
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jLabel1)
-                .addGap(36, 36, 36)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -199,6 +440,41 @@ public class jmenuprincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void bcrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bcrearMouseClicked
+        // TODO add your handling code here:
+        if(bdd.crearPartida(tpartida.getText()))
+            jmensaje.setText("* PARTIDA CREADA CON EXITO");
+        else
+            jmensaje.setText("* ESTA PARTIDA YA EXISTE");
+        
+    }//GEN-LAST:event_bcrearMouseClicked
+
+    private void bcrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bcrearActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bcrearActionPerformed
+
+    private void beditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_beditarMouseClicked
+        // TODO add your handling code here:
+        if(bdd.editarPartida((String)cbpartida.getSelectedItem(), tpartida.getText()))
+            jmensaje.setText("* PARTIDA EDITADA CON EXITO");
+        else
+            jmensaje.setText("* ESTA PARTIDA NO EXISTE");
+        
+    }//GEN-LAST:event_beditarMouseClicked
+
+    private void beliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_beliminarMouseClicked
+        // TODO add your handling code here:
+        if(bdd.eliminarPartida(tpartida.getText()))
+            jmensaje.setText("* PARTIDA ELIMINADA CON EXITO");
+        else
+            jmensaje.setText("* ESTA PARTIDA NO EXISTE");
+    }//GEN-LAST:event_beliminarMouseClicked
+
+    private void cbpartidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbpartidaMouseClicked
+        // TODO add your handling code here:
+        bdd.rellenacbpartida(cbpartida);
+    }//GEN-LAST:event_cbpartidaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -237,18 +513,39 @@ public class jmenuprincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bcrear;
+    private javax.swing.JButton bcreare;
+    private javax.swing.JButton bcrearp;
     private javax.swing.JButton beditar;
     private javax.swing.JButton beliminar;
     private javax.swing.JButton biniciar;
     private javax.swing.JComboBox<String> cbpartida;
+    private javax.swing.JComboBox<String> cbpartidae;
+    private javax.swing.JComboBox<String> cbpartidap;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JLabel jmensaje;
+    private javax.swing.JLabel jmensaje1;
+    private javax.swing.JLabel jmensaje2;
+    private javax.swing.JScrollPane tdescripcion;
+    private javax.swing.JTextField tdistancia;
+    private javax.swing.JTextField testrella;
+    private javax.swing.JTextField tjugador;
     private javax.swing.JTextField tpartida;
+    private javax.swing.JTextField tvelocidad;
     // End of variables declaration//GEN-END:variables
 }

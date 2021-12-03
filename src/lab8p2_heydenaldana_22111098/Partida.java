@@ -47,24 +47,20 @@ public class Partida
         return fechacreacion;
     }
 
-    public void setFechacreacion(String fechacreacion) {
-        this.fechacreacion = fechacreacion;
-    }
-
     public ArrayList<Estrella> getStar() {
         return star;
     }
 
-    public void setStar(ArrayList<Estrella> star) {
-        this.star = star;
+    public void setStar(int distancia, String descripcion, String nombre) {
+        this.star.add(new Estrella(distancia, descripcion, nombre));
     }
 
     public ArrayList<Jugador> getPly() {
         return ply;
     }
 
-    public void setPly(ArrayList<Jugador> ply) {
-        this.ply = ply;
+    public void setPly(double velocidad, String nombre) {
+        this.ply.add(new Jugador(velocidad, nombre));
     }
     
     
