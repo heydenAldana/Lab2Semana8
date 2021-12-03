@@ -5,8 +5,8 @@
  */
 package lab8p2_heydenaldana_22111098;
 
-import java.io.File;
-import java.io.RandomAccessFile;
+import java.io.IOException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,18 +15,21 @@ import java.io.RandomAccessFile;
 public class jmenuprincipal extends javax.swing.JFrame {
 
     private BDD bdd = new BDD();
-    private File file;
-    private RandomAccessFile partida;
     
     /**
      * Creates new form jmenuprincipal
      */
     public jmenuprincipal() {
         initComponents();
-        bdd.crearPrimerRegistro();
-        bdd.rellenacbpartida(cbpartida);
-        bdd.rellenacbpartida(cbpartidae);
-        bdd.rellenacbpartida(cbpartidap);
+        try
+        {
+            bdd.crearPrimerRegistro();
+            bdd.rellenacbpartida(cbpartida);
+            bdd.rellenacbpartida(cbpartidae);
+            bdd.rellenacbpartida(cbpartidap);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ADVERTENCIA: El sistema podria no funcionar correctamente");
+        }
     }
 
     /**
@@ -475,16 +478,21 @@ public class jmenuprincipal extends javax.swing.JFrame {
 
     private void bcrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bcrearMouseClicked
         // TODO add your handling code here:
-        if(bdd.crearPartida(tpartida.getText()))
-        {
-            jmensaje.setText("* PARTIDA CREADA CON EXITO");
-            cbpartida.removeAllItems();
-            bdd.rellenacbpartida(cbpartida);
-            bdd.rellenacbpartida(cbpartidae);
-            bdd.rellenacbpartida(cbpartidap);
-        }
-        else
-            jmensaje.setText("* ESTA PARTIDA YA EXISTE");
+        try
+            {
+            if(bdd.crearPartida(tpartida.getText()))
+            {
+                jmensaje.setText("* PARTIDA CREADA CON EXITO");
+                cbpartida.removeAllItems();
+                bdd.rellenacbpartida(cbpartida);
+                bdd.rellenacbpartida(cbpartidae);
+                bdd.rellenacbpartida(cbpartidap);
+            }
+            else
+                jmensaje.setText("* ESTA PARTIDA YA EXISTE");
+            } catch (IOException e) {
+                jmensaje.setText("* ERROR DE LECTURA/ESCRITURA EN ARCHIVO");
+            }
         
     }//GEN-LAST:event_bcrearMouseClicked
 
@@ -494,31 +502,41 @@ public class jmenuprincipal extends javax.swing.JFrame {
 
     private void beditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_beditarMouseClicked
         // TODO add your handling code here:
-        if(bdd.editarPartida((String)cbpartida.getSelectedItem(), tpartida.getText()))
+        try
         {
-            jmensaje.setText("* PARTIDA EDITADA CON EXITO");
-            cbpartida.removeAllItems();
-            bdd.rellenacbpartida(cbpartida);
-            bdd.rellenacbpartida(cbpartidae);
-            bdd.rellenacbpartida(cbpartidap);
+            if(bdd.editarPartida((String)cbpartida.getSelectedItem(), tpartida.getText()))
+            {
+                jmensaje.setText("* PARTIDA EDITADA CON EXITO");
+                cbpartida.removeAllItems();
+                bdd.rellenacbpartida(cbpartida);
+                bdd.rellenacbpartida(cbpartidae);
+                bdd.rellenacbpartida(cbpartidap);
+            }
+            else
+                jmensaje.setText("* ESTA PARTIDA NO EXISTE");
+        } catch (IOException e) {
+            jmensaje.setText("* ERROR DE LECTURA/ESCRITURA EN ARCHIVO");
+
         }
-        else
-            jmensaje.setText("* ESTA PARTIDA NO EXISTE");
-        
     }//GEN-LAST:event_beditarMouseClicked
 
     private void beliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_beliminarMouseClicked
         // TODO add your handling code here:
-        if(bdd.eliminarPartida(tpartida.getText()))
+        try
         {
-            jmensaje.setText("* PARTIDA ELIMINADA CON EXITO");
-            cbpartida.removeAllItems();
-            bdd.rellenacbpartida(cbpartida);
-            bdd.rellenacbpartida(cbpartidae);
-            bdd.rellenacbpartida(cbpartidap);
+            if(bdd.eliminarPartida(tpartida.getText()))
+            {
+                jmensaje.setText("* PARTIDA ELIMINADA CON EXITO");
+                cbpartida.removeAllItems();
+                bdd.rellenacbpartida(cbpartida);
+                bdd.rellenacbpartida(cbpartidae);
+                bdd.rellenacbpartida(cbpartidap);
+            }
+            else
+                jmensaje.setText("* ESTA PARTIDA NO EXISTE");
+        } catch (IOException e) {
+                jmensaje.setText("* ERROR DE LECTURA/ESCRITURA EN ARCHIVO");
         }
-        else
-            jmensaje.setText("* ESTA PARTIDA NO EXISTE");
     }//GEN-LAST:event_beliminarMouseClicked
 
     private void cbpartidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbpartidaMouseClicked
@@ -544,7 +562,7 @@ public class jmenuprincipal extends javax.swing.JFrame {
                 bdd.rellenacbpartida(cbpartidae);
                 bdd.rellenacbpartida(cbpartidap);
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             jmensaje1.setText("*** ERROR: pueden ser dos causas:\n"
                     + "1. NO HA RELLENADO TODOS LOS CAMPOS O NO HA ESCODIGO UNA PARTIDA\n"
                     + "2. HA ESCRITO VALORES QUE NO CORRESPONDEN (VERIFIQUE DISTANCIA)");
@@ -570,8 +588,10 @@ public class jmenuprincipal extends javax.swing.JFrame {
                 bdd.rellenacbpartida(cbpartidap);
                 bdd.rellenacbpartida(cbpartida);
                 bdd.rellenacbpartida(cbpartidae);
+            } else {
+                jmensaje2.setText("* ESTE JUGADOR YA EXISTE");
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             jmensaje1.setText("*** ERROR: pueden ser dos causas:\n"
                     + "1. NO HA RELLENADO TODOS LOS CAMPOS O NO HA ESCODIGO UNA PARTIDA\n"
                     + "2. HA ESCRITO VALORES QUE NO CORRESPONDEN (VERIFIQUE VELOCIDAD)");
