@@ -28,35 +28,38 @@ public class BDD
     {
         try
         {
-            // crea las carpetas
+            // crea las carpetas y registra
             cpartida = new File("/partidas");
-            cpartida.mkdirs();
+            if(cpartida.mkdirs())
+            {
+                rpartida = new RandomAccessFile("/partidas/partida.nin", "rw");
+                rpartida.seek(rpartida.length());
+                rpartida.writeUTF("Ciudad Morioh");
+            }
+            
             cestrella = new File("/estrellas");
-            cpartida.mkdirs();
+            if(cestrella.mkdirs())
+            {
+                restrella = new RandomAccessFile("/estrellas/estrella.nin", "rw");           
+                restrella.seek(restrella.length());
+                restrella.writeInt(1000);
+                restrella.writeUTF("La bella estrella de queen");
+                restrella.writeUTF("Killer Queen");
+                restrella.writeInt(2000);
+                restrella.writeUTF("La bella estrella de la vida: queen");
+                restrella.writeUTF("Life Queen");
+            }
+            
             cjugador = new File("/jugadores");
-            cpartida.mkdirs();
-
-            // agrega un registro (ver requerimiento en hoja lab)
-            rpartida = new RandomAccessFile("/partidas/partida.nin", "rw");
-            rpartida.seek(rpartida.length());
-            rpartida.writeUTF("Ciudad Morioh");
-            
-            restrella = new RandomAccessFile("/estrellas/estrella.nin", "rw");           
-            restrella.seek(restrella.length());
-            restrella.writeInt(1000);
-            restrella.writeUTF("La bella estrella de queen");
-            restrella.writeUTF("Killer Queen");
-            restrella.writeInt(2000);
-            restrella.writeUTF("La bella estrella de la vida: queen");
-            restrella.writeUTF("Life Queen");
-            
-            rjugador = new RandomAccessFile("/jugadores/player.nin", "rw");           
-            rjugador.seek(rjugador.length());
-            rjugador.writeDouble(25);
-            rjugador.writeUTF("James");
-            rjugador.writeDouble(55);
-            rjugador.writeUTF("Josuke");
-            
+            if(cjugador.mkdirs())
+            {
+                rjugador = new RandomAccessFile("/jugadores/player.nin", "rw");           
+                rjugador.seek(rjugador.length());
+                rjugador.writeDouble(25);
+                rjugador.writeUTF("James");
+                rjugador.writeDouble(55);
+                rjugador.writeUTF("Josuke"); 
+            }
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "ERROR:\n" + e);
         }
@@ -103,46 +106,46 @@ public class BDD
         return false;
     }
     
-    
-    private boolean verificarNombreEstrella(String nombreestrella) throws IOException
-    {
-        try
-        {
-            restrella = new RandomAccessFile("/partidas/estrella.nin", "rw");
-            restrella.seek(0);
-            for (int i = 0; i < restrella.length(); i++) 
-            {
-                if(restrella.readUTF().equals(nombreestrella))
-                    return true;
-                restrella.readUTF();
-            }
-        } catch (IOException e) {
-            
-        }
-        return false;
-    }
-    
-    
-    private boolean verificarNombreJugador(String nombre) throws IOException
-    {
-        try
-        {
-            rjugador = new RandomAccessFile("/partidas/player.nin", "rw");
-            rjugador.seek(0);
-            for (int i = 0; i < rjugador.length(); i++) 
-            {
-                rjugador.readDouble();
-                rjugador.readUTF();
-                if(rjugador.readUTF().equals(nombre))
-                    return true;
-            }
-        } catch (IOException e) {
-            
-        }
-        return false;
-    }
-    
-    
+//    
+//    private boolean verificarNombreEstrella(String nombreestrella) throws IOException
+//    {
+//        try
+//        {
+//            restrella = new RandomAccessFile("/partidas/estrella.nin", "rw");
+//            restrella.seek(0);
+//            for (int i = 0; i < restrella.length(); i++) 
+//            {
+//                if(restrella.readUTF().equals(nombreestrella))
+//                    return true;
+//                restrella.readUTF();
+//            }
+//        } catch (IOException e) {
+//            
+//        }
+//        return false;
+//    }
+//    
+//    
+//    private boolean verificarNombreJugador(String nombre) throws IOException
+//    {
+//        try
+//        {
+//            rjugador = new RandomAccessFile("/partidas/player.nin", "rw");
+//            rjugador.seek(0);
+//            for (int i = 0; i < rjugador.length(); i++) 
+//            {
+//                rjugador.readDouble();
+//                rjugador.readUTF();
+//                if(rjugador.readUTF().equals(nombre))
+//                    return true;
+//            }
+//        } catch (IOException e) {
+//            
+//        }
+//        return false;
+//    }
+//    
+//    
     // -------------------------------------------------------------------------- //
     
     // editar partida
@@ -156,6 +159,8 @@ public class BDD
             {
                 if(rpartida.readUTF().equals(nombre))
                 {
+                    long aqui = rpartida.getFilePointer();
+                    rpartida.seek(aqui);
                     rpartida.writeUTF(nombrem);
                     return true;
                 }
@@ -179,8 +184,10 @@ public class BDD
             {
                 if(rpartida.readUTF().equals(nombre))
                 {
-                    rpartida.writeUTF(null);
-                    rpartida.writeUTF(null);
+                    long aqui = rpartida.getFilePointer();
+                    rpartida.seek(aqui);
+                    rpartida.writeUTF("");
+                    rpartida.writeUTF("");
                     return true;
                 }
                 rpartida.readUTF();
@@ -262,7 +269,7 @@ public class BDD
     
     // Esta funcion obtiene un arraylist de los elementos de partida
     // para los combobox
-    private ArrayList<String> obtenerTotalPartidas()
+    private ArrayList<String> obtenerTotalPartidas() throws IOException
     {
         ArrayList<String> totalpartidas =  new ArrayList<String>();
         try
@@ -282,18 +289,73 @@ public class BDD
     }
     
     
-    // cargar combobox de partidas
-    private JComboBox cb_partida;
-    public void rellenacbpartida(JComboBox cb_partida)
+    // Esta funcion obtiene un arraylist de los elementos de estrella
+    // para los combobox
+    private ArrayList<String> obtenerTotalEstrellas() throws IOException
     {
-        ArrayList<String> cosas = new ArrayList<String>();
-        for (int i = 0; i < obtenerTotalPartidas().size(); i++) 
+        ArrayList<String> totalestrellas =  new ArrayList<String>();
+        try
         {
-            cosas.add(obtenerTotalPartidas().get(i));
+            
+            restrella = new RandomAccessFile("/estrellas/estrella.nin", "rw");
+            restrella.seek(0);
+            for (int i = 0; i < restrella.length(); i++) 
+            {
+                restrella.readInt();
+                restrella.readUTF();
+                totalestrellas.add(restrella.readUTF());
+            }
+        } catch (IOException e) {
+            
         }
+        return totalestrellas;
+    }
+    
+    
+    // Esta funcion obtiene un arraylist de los elementos de estrella
+    // para los combobox
+    private ArrayList<String> obtenerTotalJugadores() throws IOException
+    {
+        ArrayList<String> totalply =  new ArrayList<String>();
+        try
+        {
+            
+            rjugador = new RandomAccessFile("/jugadores/player.nin", "rw");
+            rjugador.seek(0);
+            for (int i = 0; i < rjugador.length(); i++) 
+            {
+                rjugador.readDouble();
+                totalply.add(restrella.readUTF());
+            }
+        } catch (IOException e) {
+            
+        }
+        return totalply;
+    }
+    
+    
+    
+    // cargar combobox de partidas
+    private JComboBox cb_partida, cb_estrella, cb_jugador;
+    
+    public void rellenacbpartida(JComboBox cb_partida) throws IOException
+    {
+        ArrayList<String> cosas = obtenerTotalPartidas();
         cb_partida.setModel(new DefaultComboBoxModel(cosas.toArray()));
         cosas.clear();
     }
     
+    public void rellenacbestrella(JComboBox cb_estrella) throws IOException
+    {
+        ArrayList<String> cosas = obtenerTotalEstrellas();
+        cb_estrella.setModel(new DefaultComboBoxModel(cosas.toArray()));
+        cosas.clear();
+    }
     
+    public void rellenacbjugadores(JComboBox cb_jugador) throws IOException
+    {
+        ArrayList<String> cosas = obtenerTotalJugadores();
+        cb_jugador.setModel(new DefaultComboBoxModel(cosas.toArray()));
+        cosas.clear();
+    }
 }
