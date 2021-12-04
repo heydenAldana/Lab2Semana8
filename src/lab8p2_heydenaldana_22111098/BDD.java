@@ -378,4 +378,23 @@ public class BDD
         }
         return -1;
     }
+    
+    public int getDistanciaEstrella(String nombre) throws IOException
+    {
+        try
+        {
+            restrella = new RandomAccessFile("/estrellas/estrella.nin", "rw");           
+            restrella.seek(0);
+            for (int i = 0; i < restrella.length(); i++) 
+            {
+                int dis = restrella.readInt();
+                restrella.readUTF();
+                if(restrella.readUTF().equals(nombre))
+                    return dis;
+            }
+        } catch (IOException e) {
+            
+        }
+        return -1;
+    }
 }

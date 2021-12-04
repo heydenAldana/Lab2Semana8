@@ -66,6 +66,7 @@ public class jPartida extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        jmensaje = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -203,6 +204,10 @@ public class jPartida extends javax.swing.JFrame {
         jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("Distancia total");
 
+        jmensaje.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jmensaje.setForeground(new java.awt.Color(102, 0, 51));
+        jmensaje.setText("*MENSAJE");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -253,6 +258,10 @@ public class jPartida extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel10)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(352, 352, 352)
+                .addComponent(jmensaje)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,10 +278,11 @@ public class jPartida extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jLabel9)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel11)
-                        .addComponent(jLabel10)))
-                .addGap(47, 47, 47)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel10))
+                .addGap(26, 26, 26)
+                .addComponent(jmensaje)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpbdistancia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -327,8 +337,18 @@ public class jPartida extends javax.swing.JFrame {
 
     private void bagregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bagregarMouseClicked
         // TODO add your handling code here:
-        DefaultTableModel tabla = (DefaultTableModel) jtabla.getModel();
-        tabla.addRow(new Object[]{(String)cbplayer.getSelectedItem(), (String)cbstar.getSelectedItem()});
+        try
+        {
+            DefaultTableModel tabla = (DefaultTableModel) jtabla.getModel();
+            tabla.addRow(new Object[]{
+                (String)cbplayer.getSelectedItem(), 
+                (String)cbstar.getSelectedItem(),
+                bdd.getVelocidadJugador((String)cbplayer.getSelectedItem()),
+                bdd.getDistanciaEstrella((String)cbstar.getSelectedItem()),
+                "En espera"});
+        } catch (IOException e) {
+            jmensaje.setText("ERROR DE LECTURA/ESCRITURA DE DATOS");
+        }
     }//GEN-LAST:event_bagregarMouseClicked
 
     /**
@@ -386,6 +406,7 @@ public class jPartida extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jmensaje;
     private javax.swing.JProgressBar jpbdistancia;
     private javax.swing.JTable jtabla;
     // End of variables declaration//GEN-END:variables
