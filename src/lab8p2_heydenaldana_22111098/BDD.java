@@ -182,9 +182,9 @@ public class BDD
             rpartida.seek(0);
             for (int i = 0; i < rpartida.length(); i++) 
             {
+                long aqui = rpartida.getFilePointer();
                 if(rpartida.readUTF().equals(nombre))
                 {
-                    long aqui = rpartida.getFilePointer();
                     rpartida.seek(aqui);
                     rpartida.writeUTF("");
                     rpartida.writeUTF("");
@@ -357,5 +357,25 @@ public class BDD
         ArrayList<String> cosas = obtenerTotalJugadores();
         cb_jugador.setModel(new DefaultComboBoxModel(cosas.toArray()));
         cosas.clear();
+    }
+    
+    // ------- OBTENER DATOS ESPECIFICOS PARA LA TABLA ---------- //
+    
+    public double getVelocidadJugador(String nombre) throws IOException
+    {
+        try
+        {
+            rjugador = new RandomAccessFile("/jugadores/player.nin", "rw");           
+            rjugador.seek(0);
+            for (int i = 0; i < rjugador.length(); i++) 
+            {
+                double vel = rjugador.readDouble();
+                if(rjugador.readUTF().equals(nombre))
+                    return vel;
+            }
+        } catch (IOException e) {
+            
+        }
+        return -1;
     }
 }
