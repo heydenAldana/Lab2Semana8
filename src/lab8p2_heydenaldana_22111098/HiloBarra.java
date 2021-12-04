@@ -15,6 +15,7 @@ public class HiloBarra extends Thread
 {
     private JProgressBar barra;
     private boolean avanzar, vive;
+    private BDD bdd;
     
     public HiloBarra(JProgressBar barra) {
         this.barra = barra;
@@ -46,20 +47,20 @@ public class HiloBarra extends Thread
         this.vive = vive;
     }
     
-    @Override
-    public void run()
+    
+    public void run(int velocidad, int maximadistancia)
     {
         while(vive)
         {
             if(avanzar)
             {
-                barra.setValue(barra.getValue() + 1);
-                if(barra.getValue()==1000000)
+                barra.setValue(barra.getValue() + velocidad);
+                if(barra.getValue()==maximadistancia)
                     vive = false;
             }
             try
             {
-                Thread.sleep(0);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 System.out.println("BARRA MURIO :(");
             }

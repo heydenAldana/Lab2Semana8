@@ -5,6 +5,11 @@
  */
 package lab8p2_heydenaldana_22111098;
 
+import java.io.IOException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableColumnModel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author heyde
@@ -12,6 +17,7 @@ package lab8p2_heydenaldana_22111098;
 public class jPartida extends javax.swing.JFrame {
 
     private HiloBarra b;
+    private BDD bdd;
     
     /**
      * Creates new form jPartida
@@ -19,6 +25,15 @@ public class jPartida extends javax.swing.JFrame {
     public jPartida() {
         initComponents();
         b = new HiloBarra(jpbdistancia);
+        
+        // rellenar comboboes
+        try
+        {
+            bdd.rellenacbjugadores(cbplayer);
+            bdd.rellenacbestrella(cbstar);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "ADVERTENCIA: Es posible que el programa no funcione correctamente");
+        }
     }
 
     /**
@@ -35,7 +50,7 @@ public class jPartida extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jpbdistancia = new javax.swing.JProgressBar();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtabla = new javax.swing.JTable();
         bcomenzar = new javax.swing.JButton();
         bpausa = new javax.swing.JButton();
         bagregar = new javax.swing.JButton();
@@ -81,18 +96,13 @@ public class jPartida extends javax.swing.JFrame {
 
         jpbdistancia.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable1.setBackground(new java.awt.Color(204, 204, 204));
-        jTable1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, null, new java.awt.Color(153, 153, 153)));
-        jTable1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jTable1.setForeground(new java.awt.Color(0, 0, 0));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtabla.setBackground(new java.awt.Color(204, 204, 204));
+        jtabla.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED, null, new java.awt.Color(153, 153, 153)));
+        jtabla.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jtabla.setForeground(new java.awt.Color(0, 0, 0));
+        jtabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Nombre", "Estrella", "Velocidad", "Distancia", "Status"
@@ -113,7 +123,7 @@ public class jPartida extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jtabla);
 
         bcomenzar.setBackground(new java.awt.Color(204, 204, 204));
         bcomenzar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -139,6 +149,11 @@ public class jPartida extends javax.swing.JFrame {
         bagregar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         bagregar.setForeground(new java.awt.Color(0, 0, 0));
         bagregar.setText("A G R E G A R");
+        bagregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bagregarMouseClicked(evt);
+            }
+        });
 
         cbplayer.setBackground(new java.awt.Color(255, 255, 255));
         cbplayer.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -310,6 +325,12 @@ public class jPartida extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bpausaMouseClicked
 
+    private void bagregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bagregarMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel tabla = (DefaultTableModel) jtabla.getModel();
+        tabla.addRow(new Object[]{(String)cbplayer.getSelectedItem(), (String)cbstar.getSelectedItem()});
+    }//GEN-LAST:event_bagregarMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -365,7 +386,7 @@ public class jPartida extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JProgressBar jpbdistancia;
+    private javax.swing.JTable jtabla;
     // End of variables declaration//GEN-END:variables
 }
