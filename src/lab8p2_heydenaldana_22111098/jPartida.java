@@ -6,6 +6,7 @@
 package lab8p2_heydenaldana_22111098;
 
 import java.io.IOException;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
@@ -16,16 +17,19 @@ import javax.swing.table.DefaultTableModel;
  */
 public class jPartida extends javax.swing.JFrame {
 
-    private HiloBarra b;
+    private HiloTabla t;
+    private HiloLabel l;
     private BDD bdd;
+    private jmenuprincipal jmp = new jmenuprincipal();
     
     /**
      * Creates new form jPartida
      */
     public jPartida() {
         initComponents();
-        b = new HiloBarra(jpbdistancia);
-        
+        JLabel l[] = {jjugador, jestrella, jdistanciar, jdistanciat};
+        t = new HiloTabla(jtabla, jpbdistancia, l);
+        jpartida.setText(jmp._partida);
         // rellenar comboboes
         try
         {
@@ -57,14 +61,14 @@ public class jPartida extends javax.swing.JFrame {
         cbplayer = new javax.swing.JComboBox<>();
         cbstar = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jpartida = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        jjugador = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        jestrella = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        jdistanciar = new javax.swing.JLabel();
+        jdistanciat = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jmensaje = new javax.swing.JLabel();
 
@@ -168,37 +172,37 @@ public class jPartida extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Partida");
 
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText("+++++++");
+        jpartida.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jpartida.setForeground(new java.awt.Color(0, 0, 0));
+        jpartida.setText("+++++++");
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Jugador");
 
-        jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setText("+++++++");
+        jjugador.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jjugador.setForeground(new java.awt.Color(0, 0, 0));
+        jjugador.setText("+++++++");
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Estrella");
 
-        jLabel7.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel7.setText("+++++++");
+        jestrella.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jestrella.setForeground(new java.awt.Color(0, 0, 0));
+        jestrella.setText("+++++++");
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Distancia Recorrida");
 
-        jLabel9.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel9.setText("+++++++");
+        jdistanciar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jdistanciar.setForeground(new java.awt.Color(0, 0, 0));
+        jdistanciar.setText("+++++++");
 
-        jLabel10.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel10.setText("+++++++");
+        jdistanciat.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jdistanciat.setForeground(new java.awt.Color(0, 0, 0));
+        jdistanciat.setText("+++++++");
 
         jLabel11.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(0, 0, 0));
@@ -235,28 +239,28 @@ public class jPartida extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel3)
+                                .addComponent(jpartida)
                                 .addGap(166, 166, 166)
                                 .addComponent(jLabel4))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(108, 108, 108)
                                 .addComponent(jLabel8)
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel9)))
+                                .addComponent(jdistanciar)))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel5)
+                                .addComponent(jjugador)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel6)
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel7)
+                                .addComponent(jestrella)
                                 .addGap(89, 89, 89))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(68, 68, 68)
                                 .addComponent(jLabel11)
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel10)
+                                .addComponent(jdistanciat)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(352, 352, 352)
@@ -269,17 +273,17 @@ public class jPartida extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel3)
+                    .addComponent(jpartida)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel5)
+                    .addComponent(jjugador)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel7))
+                    .addComponent(jestrella))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jLabel9)
+                    .addComponent(jdistanciar)
                     .addComponent(jLabel11)
-                    .addComponent(jLabel10))
+                    .addComponent(jdistanciat))
                 .addGap(26, 26, 26)
                 .addComponent(jmensaje)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -318,19 +322,20 @@ public class jPartida extends javax.swing.JFrame {
 
     private void bcomenzarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bcomenzarMouseClicked
         // TODO add your handling code here:
-        b.start();
+        t.start();
+        l.start();
     }//GEN-LAST:event_bcomenzarMouseClicked
 
     private void bpausaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bpausaMouseClicked
         // TODO add your handling code here:
-        if(b.isAvanzar())
+        if(t.isAvanzar() == true)
         {
-            b.setAvanzar(false);
+            t.setAvanzar(false);
             bpausa.setText("C O N T I N U A R");
         }
-        else if(!b.isAvanzar())
+        else if(!t.isAvanzar())
         {
-            b.setAvanzar(true);
+            t.setAvanzar(true);
             bpausa.setText("P A U S A R");
         }
     }//GEN-LAST:event_bpausaMouseClicked
@@ -393,20 +398,20 @@ public class jPartida extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbplayer;
     private javax.swing.JComboBox<String> cbstar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jdistanciar;
+    private javax.swing.JLabel jdistanciat;
+    private javax.swing.JLabel jestrella;
+    private javax.swing.JLabel jjugador;
     private javax.swing.JLabel jmensaje;
+    private javax.swing.JLabel jpartida;
     private javax.swing.JProgressBar jpbdistancia;
     private javax.swing.JTable jtabla;
     // End of variables declaration//GEN-END:variables

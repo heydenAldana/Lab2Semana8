@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 public class jmenuprincipal extends javax.swing.JFrame {
 
     private BDD bdd = new BDD();
+    public String _partida;
     
     /**
      * Creates new form jmenuprincipal
@@ -546,6 +547,7 @@ public class jmenuprincipal extends javax.swing.JFrame {
     private void biniciarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_biniciarMouseClicked
         // TODO add your handling code here:
         jPartida partida = new jPartida();
+        _partida = cbpartida.getSelectedItem().toString();
         partida.setVisible(true);
         this.hide();
     }//GEN-LAST:event_biniciarMouseClicked
